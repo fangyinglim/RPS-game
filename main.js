@@ -18,13 +18,13 @@ function computerPlay() {
     
 };
 computerPlay();
+
 //STEP 2//
 //user picks their choice, after choice is selected, playRound function will be invoked//
 //callback function 'trackScore' included to track the score after playRound is executed//
 
 
 let playerClicked = document.querySelectorAll('.choice') //returns nodelist//
-// console.log(playerClicked)
 
 //registers users choice when clicked on any of the selection//
 playerClicked.forEach (item => {
@@ -36,10 +36,9 @@ playerClicked.forEach (item => {
 })
 
 function choice() { 
-    choiceSelected = this.innerText.toLowerCase();
+    choiceSelected = this.classList[1];
     playRound(choiceSelected, computerChoice, trackScore);
 }
-
 
 let computerScore = 0;
 let playerScore = 0;
@@ -93,9 +92,30 @@ function trackScore(param1) {
 }
 //reset score after 3 wins//
 function endGame() {
-    console.log('game ends, code to reset scores')
     computerScore = 0;
     playerScore = 0;
     console.log(`computer: ${computerScore}`);
     console.log(`player: ${playerScore}`);
 }
+
+
+//when user hovers over pokemon, picture changes//
+let squirtleHover = document.querySelector('img[alt="squirtle"]');
+let squirtleSrc = 'images/rock-squirtle.png';
+let squirtleAngrySrc = 'images/squirtle-angry.jpeg';
+squirtleHover.addEventListener('mouseover', () => squirtleHover.src = squirtleAngrySrc );
+squirtleHover.addEventListener('mouseout', () => squirtleHover.src = squirtleSrc );
+
+let charmanderHover = document.querySelector('img[alt="charmander"]');
+let charmanderSrc = 'images/scissors-charmander.png';
+let charmanderAngrySrc = 'images/charmander-angry.png';
+charmanderHover.addEventListener('mouseover', () => charmanderHover.src = charmanderAngrySrc );
+charmanderHover.addEventListener('mouseout', () => charmanderHover.src = charmanderSrc );
+
+let bulbasaurHover = document.querySelector('img[alt="bulbasaur"]');
+let bulbasaurSrc = 'images/paper-bulbasaur.png';
+let bulbasaurAngrySrc = 'images/bulbasaur-angry.png';
+bulbasaurHover.addEventListener('mouseover', () => bulbasaurHover.src = bulbasaurAngrySrc );
+bulbasaurHover.addEventListener('mouseout', () => bulbasaurHover.src = bulbasaurSrc );
+
+
