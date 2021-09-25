@@ -103,19 +103,60 @@ function endGame() {
 let squirtleHover = document.querySelector('img[alt="squirtle"]');
 let squirtleSrc = 'images/rock-squirtle.png';
 let squirtleAngrySrc = 'images/squirtle-angry.jpeg';
-squirtleHover.addEventListener('mouseover', () => squirtleHover.src = squirtleAngrySrc );
-squirtleHover.addEventListener('mouseout', () => squirtleHover.src = squirtleSrc );
+let newDiv = document.createElement('div');
+newDiv.classList.add('blink');
+
+squirtleHover.addEventListener('mouseover', () => {
+    squirtleHover.src = squirtleAngrySrc; 
+    let parentDiv = squirtleHover.parentNode; //parent div of img//
+    parentDiv.insertBefore(newDiv, squirtleHover); 
+    return })
+
+squirtleHover.addEventListener('mouseout', () => {
+    squirtleHover.src = squirtleSrc;
+    document.querySelector('.blink').remove();
+    return })
 
 let charmanderHover = document.querySelector('img[alt="charmander"]');
 let charmanderSrc = 'images/scissors-charmander.png';
 let charmanderAngrySrc = 'images/charmander-angry.png';
-charmanderHover.addEventListener('mouseover', () => charmanderHover.src = charmanderAngrySrc );
-charmanderHover.addEventListener('mouseout', () => charmanderHover.src = charmanderSrc );
+
+charmanderHover.addEventListener('mouseover', () => {
+    charmanderHover.src = charmanderAngrySrc 
+    let parentDiv = charmanderHover.parentNode; //parent div of img//
+    parentDiv.insertBefore(newDiv, charmanderHover); 
+    return });
+
+charmanderHover.addEventListener('mouseout', () => {
+    charmanderHover.src = charmanderSrc 
+    document.querySelector('.blink').remove();
+    return });
 
 let bulbasaurHover = document.querySelector('img[alt="bulbasaur"]');
 let bulbasaurSrc = 'images/paper-bulbasaur.png';
 let bulbasaurAngrySrc = 'images/bulbasaur-angry.png';
-bulbasaurHover.addEventListener('mouseover', () => bulbasaurHover.src = bulbasaurAngrySrc );
-bulbasaurHover.addEventListener('mouseout', () => bulbasaurHover.src = bulbasaurSrc );
+
+bulbasaurHover.addEventListener('mouseover', () => {
+    bulbasaurHover.src = bulbasaurAngrySrc 
+    let parentDiv = bulbasaurHover.parentNode; //parent div of img//
+    parentDiv.insertBefore(newDiv, bulbasaurHover); 
+    return });
+
+bulbasaurHover.addEventListener('mouseout', () => {
+    bulbasaurHover.src = bulbasaurSrc;
+    document.querySelector('.blink').remove();
+    return });
 
 
+playerClicked.forEach (item => {
+    item.onclick = function animationAppear() {
+        return new Promise ((resolve, reject) => {
+            if (item.classList[1] === "rock") {
+                document.querySelector('.choice-animation').style.background = 'url(images/squirtle-attack.png)';
+                document.querySelector('.choice-animation').style.backgroundSize = 'cover';
+                resolve('parameter on resolve');
+            }
+        }).then((message) => {
+            console.log(message)});
+    }
+});
