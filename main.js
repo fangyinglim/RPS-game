@@ -47,55 +47,79 @@ let playerScore = 0;
 function playRound(choiceSelected, computerChoice, callback) {
     console.log(choiceSelected); 
     console.log(computerChoice);
+    let message;
         if (choiceSelected === computerChoice) {
             console.log('tie')
+            message = 'It\'s a tie.' 
         }
         else if (choiceSelected === "rock" && computerChoice === "scissors") {
             console.log('win');
             playerScore++;
+            message = 'Player Wins!'
         }
         else if (choiceSelected === "paper" && computerChoice === "rock") {
             console.log('win');
             playerScore++;
+            message = 'Player Wins!'
 
         }
         else if (choiceSelected === "scissors" && computerChoice === "paper") {
             console.log('win');
             playerScore++;
+            message = 'Player Wins!'
 
         }
         else {
             console.log('lose');
             computerScore++;
+            message = 'Player Loses...'
 
         }
 
-    callback('parameter that will pass through callback'); //callback function invoked after 1 game is played
+    callback(message); //callback function invoked after 1 game is played
 }
-function trackScore(param1) {
-    console.log(param1); //console log param1
-    console.log(`computer: ${computerScore}`); // console log scores, will update and return scores since they are global scoped?
+function trackScore(message) {
+    console.log(message); //console log param1
+    document.querySelector('.playerScore').innerText = playerScore;
+    document.querySelector('.computerScore').innerText = computerScore;
+    document.querySelector('.popUpMessage').innerText = message;
+
     console.log(`player: ${playerScore}`);
+    console.log(`computer: ${computerScore}`); // console log scores, will update and return scores since they are global scoped?
+    let resetMessage;
     if (playerScore === 3) {
         console.log('player wins')
-        endGame();
+        resetMessage = 'Player wins the game! Scores are resetted'
+        setTimeout(() => {
+            endGame(resetMessage);  
+        }, 1500);
     }
     else if (computerScore === 3) {
         console.log('player loses')
-        endGame();
+        resetMessage = 'Player loses the game. Scores are resetted'
+        setTimeout(() => {
+            endGame(resetMessage);  
+        }, 1500);
     }
     else if (playerScore === 3 && computerScore === 3) {
         console.log('tie')
-        endGame();
+        resetMessage = 'It\'s a tie, try again! Scores are resetted'
+        setTimeout(() => {
+            endGame(resetMessage);  
+        }, 1500);
     }
 
 }
 //reset score after 3 wins//
-function endGame() {
+function endGame(resetMessage) {
     computerScore = 0;
     playerScore = 0;
-    console.log(`computer: ${computerScore}`);
-    console.log(`player: ${playerScore}`);
+    document.querySelector('.popUpMessage').innerText = resetMessage
+    document.querySelector('.playerScore').innerText = playerScore;
+    document.querySelector('.computerScore').innerText = computerScore;
+    // console.log(`computer: ${computerScore}`);
+    // console.log(`player: ${playerScore}`);
+
 }
 
 
@@ -154,9 +178,29 @@ playerClicked.forEach (item => {
             if (item.classList[1] === "rock") {
                 document.querySelector('.choice-animation').style.background = 'url(images/squirtle-attack.png)';
                 document.querySelector('.choice-animation').style.backgroundSize = 'cover';
-                resolve('parameter on resolve');
+                document.querySelector('.attackName').innerText = 'Squirtle used Rapid Spin! '
+                resolve('remove animation after 2s');
+            } 
+            else if (item.classList[1] === "paper") {
+                document.querySelector('.choice-animation').style.background = 'url(images/bulbasaur-attack.png)'
+                document.querySelector('.choice-animation').style.backgroundSize = 'cover';
+                document.querySelector('.attackName').innerText = 'Bulbasaur used Razor Leaf! '
+                resolve('remove animation after 2s');
+            }
+            else if (item.classList[1] === "scissors") {
+                document.querySelector('.choice-animation').style.background = 'url(images/charmander-attack.png)'
+                document.querySelector('.choice-animation').style.backgroundSize = 'cover';
+                document.querySelector('.attackName').innerText = 'Charmander used Flamethrower! '
+                resolve('remove animation after 2s'); 
             }
         }).then((message) => {
+            setTimeout(() => {
+                document.querySelector('.choice-animation').style.background = '';
+                document.querySelector('.attackName').innerText = '';
+            }, 1500);
             console.log(message)});
     }
 });
+
+
+
